@@ -1,0 +1,11 @@
+let jsonServer = require('json-server');
+
+let server = jsonServer.create();
+
+server.use(jsonServer.defaults());
+
+let router = jsonServer.router('db.json');
+server.use(router);
+
+console.log('Listening on 4000');
+server.listen(4000);
