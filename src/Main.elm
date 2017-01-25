@@ -1,47 +1,21 @@
 module Main exposing (..)
 
-import Html exposing (Html, div, text, program)
+import Messages exposing (Msg(..))
+import Models exposing (Model, initialModel)
+import Navigation exposing (Location)
+import Update exposing (update)
+import View exposing (view)
+import Players.Commands exposing (fetchAll)
+import Routing exposing (Route)
 
 
--- Model
-
-
-type alias Model =
-    String
-
-
-init : ( Model, Cmd Msg )
-init =
-    ( "Hello", Cmd.none )
-
-
-
--- Messages
-
-
-type Msg
-    = NoOp
-
-
-
--- View
-
-
-view : Model -> Html Msg
-view model =
-    div []
-        [ text model ]
-
-
-
--- Update
-
-
-update : Msg -> Model -> ( Model, Cmd Msg )
-update msg model =
-    case msg of
-        NoOp ->
-            ( model, Cmd.none )
+init : Location -> ( Model, Cmd Msg )
+init location =
+    let
+        currentRoute =
+            Routing.parseLocation location
+    in
+        ( initialModel currentRoute, Cmd.map PlayersMsg fetchAll )
 
 
 
@@ -59,7 +33,7 @@ subscriptions model =
 
 main : Program Never Model Msg
 main =
-    program
+    Navigation.program OnLocationChange
         { init = init
         , view = view
         , update = update

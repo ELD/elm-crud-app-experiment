@@ -32,7 +32,7 @@ module.exports = {
         loader: 'elm-webpack?verbose=true&warn=true',
       },
       {
-        test: /\.woff(2)?(\v?=[0-9]\.[0-9]\.[0-9])?$/,
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         loader: 'url-loader?limit=10000&mimetype=application/font-woff',
       },
       {
